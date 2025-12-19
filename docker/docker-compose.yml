@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: jakub-klokner-web
+    ports:
+      - "8181:80"
+    labels:
+      # 1. Enable Traefik
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik"
+
+      # 2. Define the Router (The Rule)
+      - "traefik.http.routers.jakub-app.rule=Host(`jakub.klokner.sk`)"
+      - "traefik.http.routers.jakub-app.entrypoints=websecure"
+      - "traefik.http.routers.jakub-app.tls=true"
+      - "traefik.http.routers.jakub-app.tls.certresolver=myresolver"
+
+      # 3. Attach Middleware (The Headers)
+      - "traefik.http.routers.jakub-app.middlewares=jakub-security"
+
+      # 4. Define the Middleware (STS Configuration)
+      - "traefik.http.middlewares.jakub-security.headers.stsSeconds=315360000"
+
+      # 5. Define the Service (Port & Stickiness)
+      - "traefik.http.services.jakub-app.loadbalancer.server.port=80"
+      - "traefik.http.services.jakub-app.loadbalancer.sticky.cookie.name=lb_sticky"
+      - "traefik.http.services.jakub-app.loadbalancer.sticky.cookie.secure=true"
+      - "traefik.http.services.jakub-app.loadbalancer.sticky.cookie.httpOnly=true"
+
+    networks:
+      - traefik
+    volumes:
+      - ../web:/usr/share/nginx/html:ro
+    restart: unless-stopped
+
+networks:
+  traefik:
+    external: true

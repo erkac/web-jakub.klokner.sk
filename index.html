@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jakub Klokner</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
+        .card.active {
+            transform: scale(1.05);
+        }
+
+        .card-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .card-icon {
+            transform: rotate(10deg) scale(1.1);
+        }
+
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .card-content {
+            color: #666;
+            line-height: 1.6;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .card.active .card-content {
+            max-height: 200px;
+        }
+
+        .card-preview {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .card.active .card-preview {
+            display: none;
+        }
+
+        .click-hint {
+            text-align: center;
+            color: white;
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-top: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 0.4;
+            }
+        }
+
+        .fortnite { background: linear-gradient(135deg, #00d4ff, #0099ff); color: white; }
+        .youtube { background: linear-gradient(135deg, #ff0000, #cc0000); color: white; }
+        .biking { background: linear-gradient(135deg, #00ff88, #00cc66); color: white; }
+        .printing { background: linear-gradient(135deg, #ff6b6b, #ee5a6f); color: white; }
+
+        .fortnite h2, .youtube h2, .biking h2, .printing h2 {
+            color: white;
+        }
+
+        .fortnite .card-preview, .youtube .card-preview, .biking .card-preview, .printing .card-preview {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .fortnite .card-content, .youtube .card-content, .biking .card-content, .printing .card-content {
+            color: rgba(255,255,255,0.95);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Jakub Klokner</h1>
+            <p class="subtitle">Gamer • Creator • Rider • Maker</p>
+        </header>
+
+        <div class="cards-grid">
+            <div class="card fortnite" onclick="toggleCard(this)">
+                <span class="card-icon">🎮</span>
+                <h2>Fortnite</h2>
+                <p class="card-preview">Victory Royale!</p>
+                <div class="card-content">
+                    <p>Dropping into the battle royale action! Whether it's building to the sky or landing that perfect snipe, Fortnite is where the action happens. Always ready for squad matches and chasing that Victory Royale!</p>
+                </div>
+            </div>
+
+            <div class="card youtube" onclick="toggleCard(this)">
+                <span class="card-icon">📹</span>
+                <h2>YouTubing</h2>
+                <p class="card-preview">Creating content!</p>
+                <div class="card-content">
+                    <p>Lights, camera, action! Creating awesome videos and sharing cool moments with the world. From gaming highlights to bike tricks, capturing it all on camera and sharing the passion!</p>
+                </div>
+            </div>
+
+            <div class="card biking" onclick="toggleCard(this)">
+                <span class="card-icon">🚴</span>
+                <h2>Biking</h2>
+                <p class="card-preview">Pump track & enduro!</p>
+                <div class="card-content">
+                    <p>Hitting the pump track for smooth flows and technical enduro trails for epic descents. Two wheels, endless thrills! Whether it's mastering jumps or tackling challenging terrain, biking is pure freedom!</p>
+                </div>
+            </div>
+
+            <div class="card printing" onclick="toggleCard(this)">
+                <span class="card-icon">🖨️</span>
+                <h2>3D Printing</h2>
+                <p class="card-preview">Making ideas reality!</p>
+                <div class="card-content">
+                    <p>Bringing digital designs to life, layer by layer! From custom parts to creative projects, 3D printing turns imagination into reality. The future of making is here!</p>
+                </div>
+            </div>
+        </div>
+
+        <p class="click-hint">👆 Click on any card to learn more!</p>
+    </div>
+
+    <script>
+        function toggleCard(card) {
+            // If clicking an already active card, deactivate it
+            if (card.classList.contains('active')) {
+                card.classList.remove('active');
+            } else {
+                // Remove active class from all cards
+                document.querySelectorAll('.card').forEach(c => {
+                    c.classList.remove('active');
+                });
+                // Add active class to clicked card
+                card.classList.add('active');
+            }
+        }
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.card').forEach(c => {
+                    c.classList.remove('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
